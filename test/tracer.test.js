@@ -537,8 +537,8 @@ describe('auth0 binary format', function() {
     assert.ok(extracted);
 
     // Verify that the round trip was successful
-    assert.equal(span.uuid(), extracted['uuid']);
-    assert.equal(span.operationName(), extracted['operationName']);
+    assert.equal(span.getSpan().uuid(), extracted.getSpan()['uuid']);
+    assert.equal(span.getSpan().operationName(), extracted.getSpan()['operationName']);
   });
 
   it('should handle bad data', function() {
