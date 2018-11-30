@@ -20,7 +20,10 @@ module.exports = {
     this.errorReporter = ErrorReporter(pkg, env);
     this.metrics = Metrics(pkg, env);
     this.profiler = new Profiler(this, pkg, env);
-    this.tracer = Tracer(this, pkg, env, { isEnabled: params && params.isEnabled });
+    this.tracer = Tracer(this, pkg, env, {
+      isEnabled: params && params.isEnabled,
+      logger: this.logger
+    });
     this.initialized = true;
 
     if (params && params.fileRotationSignal && env.LOG_FILE) {
