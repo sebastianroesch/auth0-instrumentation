@@ -20,7 +20,7 @@ describe('tracer hapi17 middleware', function() {
         carrier['x-span-id'] = span.uuid();
       };
       mock.extract = sinon.fake();
-      tracer = require('../lib/tracer')({}, {}, {}, mock);
+      tracer = require('../lib/tracer')({}, {}, {}, { tracerImpl: mock });
 
       server = new hapi17.Server({port: 9999});
       server.route({
