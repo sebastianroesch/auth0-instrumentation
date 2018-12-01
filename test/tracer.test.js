@@ -295,7 +295,7 @@ describe('tracer using jaeger-client', function() {
     }, {
       TRACE_AGENT_CLIENT: 'jaeger',
       TRACE_AGENT_HOST: 'jaeger.auth0.net',
-      TRACE_AGENT_PORT: 6831
+      TRACE_AGENT_PORT: 443
     });
   });
 
@@ -310,7 +310,7 @@ describe('tracer using jaeger-client', function() {
 
     it('should send spans to the right location', function() {
       assert.equal($tracer._tracer._reporter._sender._host, 'jaeger.auth0.net');
-      assert.equal($tracer._tracer._reporter._sender._port, 6831);
+      assert.equal($tracer._tracer._reporter._sender._port, 443);
     });
 
     it('should contain standard format definitions', function() {
@@ -340,7 +340,7 @@ describe('when using isEnabled is defined', function() {
     }, {
       TRACE_AGENT_CLIENT: 'jaeger',
       TRACE_AGENT_HOST: 'jaeger.auth0.net',
-      TRACE_AGENT_PORT: 6831
+      TRACE_AGENT_PORT: 443
     }, { isEnabled: () => {} });
   });
 

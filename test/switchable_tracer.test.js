@@ -38,7 +38,10 @@ describe('Switchable tracer', () => {
       switchableTracer = buildSwitchableTracer({
         baseTracer: baseTracerMock.mock,
         tracerStubs: tracerStubsMock.mock,
-        isEnabled: () => { throw error; }
+        isEnabled: () => { throw error; },
+        logger: {
+          error: () => {}
+        }
       });
     });
 
