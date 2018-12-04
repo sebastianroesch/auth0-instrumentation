@@ -1,15 +1,19 @@
 # Changelog
+
+<a name="v2.22.0"></a>
+# v2.22.0
+### Bugfix
+* Fix span wrapping error that caused tracer to leak memory when using lightstep tracer
+### Feature
+* Add support to disable the trace on-the-fly (switchable tracer)
+* Improve exception handling and logging
+* https://github.com/auth0/auth0-instrumentation/compare/v2.20.0...v2.20.1
+
 <a name="v2.21.0"></a>
 # v2.21.0
 ### Feature
 * Add `region`/`environment`/`channel` tags to sentry events
 * https://github.com/auth0/auth0-instrumentation/compare/v2.20.1...v2.21.0
-
-<a name="v2.20.1"></a>
-# v2.20.1
-### Bugfix
-* Fix error in metrics' flush method when Datadog and StatsD are both configured 
-* https://github.com/auth0/auth0-instrumentation/compare/v2.20.0...v2.20.1
 
 <a name="v2.20.0"></a>
 # v2.20.0

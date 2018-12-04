@@ -7,13 +7,14 @@ const protobuf = require('protobufjs');
 const request = require('supertest');
 const sinon = require('sinon');
 const requestjs = require('request');
+const stubs = require('../lib/stubs');
 
 describe('tracer stub', function() {
   var $mock;
   var $tracer;
   beforeEach(function() {
     $mock = new opentracing.MockTracer();
-    $tracer = require('../lib/tracer')({}, {}, {}, $mock);
+    $tracer = require('../lib/tracer')({}, {}, {}, { tracerImpl: $mock });
   });
 
   describe('when wrapped', function() {
@@ -110,7 +111,7 @@ describe('tracer express middleware', function() {
         carrier['x-span-id'] = span.uuid();
       };
       $mock.extract = sinon.fake();
-      $tracer = require('../lib/tracer')({}, {}, {}, $mock);
+      $tracer = require('../lib/tracer')({}, {}, {}, { tracerImpl: $mock });
       app = express();
       app.use($tracer.middleware.express);
       app.get('/success', function(_req, res) {
@@ -216,7 +217,7 @@ describe('tracer express middleware', function() {
         carrier['x-span-id'] = span.uuid();
       };
       $mock.extract = sinon.fake();
-      $tracer = require('../lib/tracer')({}, {}, {}, $mock);
+      $tracer = require('../lib/tracer')({}, {}, {}, { tracerImpl: $mock });
       app = express();
       app.use($tracer.middleware.express);
     });
@@ -294,7 +295,7 @@ describe('tracer using jaeger-client', function() {
     }, {
       TRACE_AGENT_CLIENT: 'jaeger',
       TRACE_AGENT_HOST: 'jaeger.auth0.net',
-      TRACE_AGENT_PORT: 6831
+      TRACE_AGENT_PORT: 443
     });
   });
 
@@ -309,7 +310,7 @@ describe('tracer using jaeger-client', function() {
 
     it('should send spans to the right location', function() {
       assert.equal($tracer._tracer._reporter._sender._host, 'jaeger.auth0.net');
-      assert.equal($tracer._tracer._reporter._sender._port, 6831);
+      assert.equal($tracer._tracer._reporter._sender._port, 443);
     });
 
     it('should contain standard format definitions', function() {
@@ -331,6 +332,24 @@ describe('tracer using jaeger-client', function() {
   });
 });
 
+describe('when using isEnabled is defined', function() {
+  var $tracer;
+  beforeEach(function() {
+    $tracer = require('../lib/tracer')({}, {
+      name: 'auth0-service'
+    }, {
+      TRACE_AGENT_CLIENT: 'jaeger',
+      TRACE_AGENT_HOST: 'jaeger.auth0.net',
+      TRACE_AGENT_PORT: 443
+    }, { isEnabled: () => {} });
+  });
+
+  it('returns a switchable tracer with correct stubs and base tracer', function() {
+    assert.equal($tracer._tracer.tracerStubs, stubs.tracer);
+    assert.equal($tracer._tracer.baseTracer._process.serviceName, 'auth0-service');
+  });
+});
+
 describe('tracer hapi16 middleware', function() {
   // We expect 4 spans:
   //  - request (top level span)
@@ -348,7 +367,7 @@ describe('tracer hapi16 middleware', function() {
         carrier['x-span-id'] = span.uuid();
       };
       mock.extract = sinon.fake();
-      tracer = require('../lib/tracer')({}, {}, {}, mock);
+      tracer = require('../lib/tracer')({}, {}, {}, { tracerImpl: mock });
 
       server = new hapi16.Server();
       server.connection({ port: 9999 });
@@ -500,7 +519,7 @@ describe('auth0 binary format', function() {
         return carrier;
       }
     };
-    $tracer = require('../lib/tracer')({}, {}, {}, $mock);
+    $tracer = require('../lib/tracer')({}, {}, {}, { tracerImpl: $mock });
   });
 
   it('should be able to inject and extract using AUTH0_FORMAT', function() {
@@ -518,12 +537,12 @@ describe('auth0 binary format', function() {
     assert.ok(extracted);
 
     // Verify that the round trip was successful
-    assert.equal(span.uuid(), extracted['uuid']);
-    assert.equal(span.operationName(), extracted['operationName']);
+    assert.equal(span.getSpan().uuid(), extracted.getSpan()['uuid']);
+    assert.equal(span.getSpan().operationName(), extracted.getSpan()['operationName']);
   });
 
   it('should handle bad data', function() {
-    assert.doesNotThrow(() => { 
+    assert.doesNotThrow(() => {
       const extracted = $tracer.extract($tracer.FORMAT_AUTH0_BINARY, 'bad data here');
       assert(!extracted);
     });
@@ -558,7 +577,7 @@ describe('trace request helper', function() {
     $mock.inject = function(span, format, carrier) {
       carrier['x-span-id'] = span.uuid();
     };
-    $tracer = require('../lib/tracer')({}, {}, {}, $mock);
+    $tracer = require('../lib/tracer')({}, {}, {}, { tracerImpl: $mock });
     $wrapRequest = $tracer.helpers.wrapRequest;
   });
 
