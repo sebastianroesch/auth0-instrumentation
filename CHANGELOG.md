@@ -3,7 +3,6 @@
 <a name="v2.22.0"></a>
 # v2.22.0
 ### Bugfix
-* Fix error in metrics' flush method when Datadog and StatsD are both configured
 * Fix span wrapping error that caused tracer to leak memory when using lightstep tracer
 ### Feature
 * Add support to disable the trace on-the-fly (switchable tracer)
