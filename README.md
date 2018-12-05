@@ -1,6 +1,7 @@
 # auth0-instrumentation
 
 [![Build Status](https://travis-ci.org/auth0/auth0-instrumentation.svg?branch=master)](https://travis-ci.org/auth0/auth0-instrumentation)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 The goal of this package is to make it easier to collect information about our services through logs, metrics, tracing and error reporting.
 
