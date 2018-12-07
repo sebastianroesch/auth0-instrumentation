@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="v2.22.1"></a>
+# v2.22.1
+
+### Security
+* Updated security vulnerabilities found in dependencies (auth0/auth0-instrumentation#152)
+
 <a name="v2.22.0"></a>
 # v2.22.0
 ### Bugfix
