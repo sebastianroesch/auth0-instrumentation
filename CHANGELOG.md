@@ -4,7 +4,7 @@
 # v2.22.1
 
 ### Security
-* Updated security vulnerabilities found in dependencies (auth0/auth0-instrumentation#152)
+* Updated security vulnerabilities found in dependencies - [#152](https://github.com/auth0/auth0-instrumentation/pull/152)
 
 <a name="v2.22.0"></a>
 # v2.22.0
