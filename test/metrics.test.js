@@ -110,6 +110,11 @@ describe('metrics', function() {
         assert.ok(id);
       }, TypeError));
 
+    it('should not do anything when running endTime alone', () =>
+      assert.doesNotThrow(function() {
+        actual.endTime('unkown');
+      }, Error));
+
     it('should run histogram without throwing', () =>
       assert.doesNotThrow(function() {
         actual.gauge('foo.bar', 5.5);
