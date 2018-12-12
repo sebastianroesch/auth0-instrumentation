@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="v2.23.0"></a>
+# v2.23.0
+
+### Feature
+* Add default tags to tracer - [#153](https://github.com/auth0/auth0-instrumentation/pull/153)
+
 <a name="v2.22.1"></a>
 # v2.22.1
 

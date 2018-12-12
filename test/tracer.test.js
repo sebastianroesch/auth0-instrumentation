@@ -14,7 +14,11 @@ describe('tracer stub', function() {
   var $tracer;
   beforeEach(function() {
     $mock = new opentracing.MockTracer();
-    $tracer = require('../lib/tracer')({}, {}, {}, { tracerImpl: $mock });
+    $tracer = require('../lib/tracer')({}, {}, {
+      REGION: 'myRegion',
+      RELEASE_CHANNEL: 'myReleaseChannel',
+      ENVIRONMENT: 'myEnvironment'
+    }, { tracerImpl: $mock });
   });
 
   describe('when wrapped', function() {
@@ -53,6 +57,36 @@ describe('tracer stub', function() {
     it('should return the wrapped tracer for tracer()', function() {
       assert.hasOwnProperty(
         $tracer.startSpan('foo').tracer(), 'AUTH0_TENANT');
+    });
+
+    it('when there are no tags, should add default tags', function() {
+      $tracer.startSpan('foo').finish();
+      const report = $mock.report();
+      assert.ok(report.firstSpanWithTagValue('auth0.region', 'myRegion'));
+      assert.ok(report.firstSpanWithTagValue('auth0.environment', 'myEnvironment'));
+      assert.ok(report.firstSpanWithTagValue('auth0.channel', 'myReleaseChannel'));
+    });
+
+    it('when there are no tags but there is a parent, should add default tags', function() {
+      $tracer.startSpan('foo', { childOf: $tracer.startSpan('bar') }).finish();
+      const report = $mock.report();
+      assert.ok(report.firstSpanWithTagValue('auth0.region', 'myRegion'));
+      assert.ok(report.firstSpanWithTagValue('auth0.environment', 'myEnvironment'));
+      assert.ok(report.firstSpanWithTagValue('auth0.channel', 'myReleaseChannel'));
+    });
+
+    it('when there are other tags, should merge them', function() {
+      const span = $tracer.startSpan('foo', {
+        childOf: $tracer.startSpan('bar'),
+      });
+      span.setTag('testTag', 'testVal');
+      span.finish();
+
+      const report = $mock.report();
+      assert.ok(report.firstSpanWithTagValue('auth0.region', 'myRegion'));
+      assert.ok(report.firstSpanWithTagValue('auth0.environment', 'myEnvironment'));
+      assert.ok(report.firstSpanWithTagValue('auth0.channel', 'myReleaseChannel'));
+      assert.ok(report.firstSpanWithTagValue('testTag', 'testVal'));
     });
   });
 
