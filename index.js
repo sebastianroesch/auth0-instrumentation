@@ -4,6 +4,7 @@ var ErrorReporter = require('./lib/error_reporter');
 var Metrics = require('./lib/metrics');
 var Profiler = require('./lib/profiler');
 var Tracer = require('./lib/tracer');
+var MetricsHTTP = require('./lib/metrics/http');
 
 module.exports = {
   logger: stubs.logger,
@@ -32,5 +33,7 @@ module.exports = {
         this.logger.info('The log file has been rotated.');
       });
     }
+
+    this.http = MetricsHTTP;
   }
 };

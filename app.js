@@ -7,12 +7,20 @@ appmetrics.configure({
 });
 
 agent.init({name: 'test'}, process.env);
-agent.metrics.startRuntimeCollection(appmetrics);
+const monitor = appmetrics.monitor();
+agent.metrics.startRuntimeCollection(appmetrics, monitor);
 
 const express = require('express');
 const app = express();
 const port = 3000;
 
-app.get('/', (req, res) => res.send('Hello World!'));
+app.get('/', (req, res) => {
+  agent.metrics.incrementOne('http.request');
+  res.send('Hello World!');
+});
+
+const profileHTTP = new agent.http.DebugRuntimeToggle('profiling', monitor);
+
+app.post('/debug/v8/profiling', profileHTTP.toggle);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
