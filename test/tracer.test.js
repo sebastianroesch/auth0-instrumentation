@@ -17,7 +17,8 @@ describe('tracer stub', function() {
     $tracer = require('../lib/tracer')({}, {}, {
       REGION: 'myRegion',
       RELEASE_CHANNEL: 'myReleaseChannel',
-      ENVIRONMENT: 'myEnvironment'
+      ENVIRONMENT: 'myEnvironment',
+      METRICS_HOST: 'myHostname'
     }, { tracerImpl: $mock });
   });
 
@@ -65,6 +66,7 @@ describe('tracer stub', function() {
       assert.ok(report.firstSpanWithTagValue('auth0.region', 'myRegion'));
       assert.ok(report.firstSpanWithTagValue('auth0.environment', 'myEnvironment'));
       assert.ok(report.firstSpanWithTagValue('auth0.channel', 'myReleaseChannel'));
+      assert.ok(report.firstSpanWithTagValue('auth0.hostname', 'myHostname'));
     });
 
     it('when there are no tags but there is a parent, should add default tags', function() {
@@ -73,6 +75,7 @@ describe('tracer stub', function() {
       assert.ok(report.firstSpanWithTagValue('auth0.region', 'myRegion'));
       assert.ok(report.firstSpanWithTagValue('auth0.environment', 'myEnvironment'));
       assert.ok(report.firstSpanWithTagValue('auth0.channel', 'myReleaseChannel'));
+      assert.ok(report.firstSpanWithTagValue('auth0.hostname', 'myHostname'));
     });
 
     it('when there are other tags, should merge them', function() {
@@ -86,6 +89,7 @@ describe('tracer stub', function() {
       assert.ok(report.firstSpanWithTagValue('auth0.region', 'myRegion'));
       assert.ok(report.firstSpanWithTagValue('auth0.environment', 'myEnvironment'));
       assert.ok(report.firstSpanWithTagValue('auth0.channel', 'myReleaseChannel'));
+      assert.ok(report.firstSpanWithTagValue('auth0.hostname', 'myHostname'));
       assert.ok(report.firstSpanWithTagValue('testTag', 'testVal'));
     });
   });
