@@ -187,11 +187,11 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
-auth0-common-logging@auth0/auth0-common-logging#v2.18.0:
-  version "2.18.0"
-  resolved "https://codeload.github.com/auth0/auth0-common-logging/tar.gz/f97ff057f2d5804be4f6bc38c9c311e38e1756d7"
+auth0-common-logging@auth0/auth0-common-logging#v2.22.0:
+  version "2.22.0"
+  resolved "https://codeload.github.com/auth0/auth0-common-logging/tar.gz/bb18d333bbde12b10b151d95c272786414267202"
   dependencies:
-    lodash "~3.10.1"
+    lodash "^4.17.11"
     request "^2.27.0"
 
 aws-kinesis-writable@4.2.0:
@@ -1444,9 +1444,10 @@ lodash@^4.0.0:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
-lodash@~3.10.1:
-  version "3.10.1"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
+lodash@^4.17.11:
+  version "4.17.11"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
+  integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
 
 lolex@^2.3.2, lolex@^2.7.1:
   version "2.7.1"
