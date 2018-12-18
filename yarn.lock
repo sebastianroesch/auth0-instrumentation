@@ -568,12 +568,12 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-datadog-metrics@0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/datadog-metrics/-/datadog-metrics-0.5.1.tgz#72b9ba20b85b115bc49b068a8046d5554e86d310"
-  integrity sha512-x8OKMG6mi73d4m49pxhorJ0W05dD7E9KjFn6o3NrD8G0jI4yja06UQxKAax500CkihMrFlvGkk/m3Me6oHRBSw==
+datadog-metrics@~0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/datadog-metrics/-/datadog-metrics-0.8.1.tgz#be87237109a7084193c668d80112533ef00e3f21"
+  integrity sha512-qTSKnddO6GxTJW9FYpmWjvvift3qfyMurDjwNjJnJhBk76pBdDhC0B5V9V+XwPdn4r42qu48kwXNuHJslXlDOA==
   dependencies:
-    debug "^3.1.0"
+    debug "3.1.0"
     dogapi "1.1.0"
 
 debug@2, debug@2.6.9, debug@^2.1.2, debug@^2.1.3, debug@^2.2.0:
@@ -588,7 +588,7 @@ debug@2.6.8:
   dependencies:
     ms "2.0.0"
 
-debug@^3.1.0:
+debug@3.1.0, debug@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   dependencies:
