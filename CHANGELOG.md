@@ -1,5 +1,15 @@
 # Changelog
 
+<a name="v2.23.1"></a>
+# v2.23.1
+
+### Security
+* Updated security vulnerabilities found in dependencies - [#157](https://github.com/auth0/auth0-instrumentation/pull/157)
+  * auth0-common-logging 2.18.0 -> 2.22.0
+  * datadog-metrics 0.5.1 -> 0.8.1
+  * gc-stats 1.1.1 -> 1.2.1
+  * lightstep-tracer 0.20.13 -> 0.21.0
+
 <a name="v2.23.0"></a>
 # v2.23.0
 
