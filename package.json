@@ -1,6 +1,6 @@
 {
   "name": "auth0-instrumentation",
-  "version": "2.24.0",
+  "version": "2.24.1",
   "description": "Instrumentation for logs, metrics, and exceptions",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "auth0-common-logging": "auth0/auth0-common-logging#v2.22.0",
-    "aws-kinesis-writable": "4.2.0",
+    "aws-kinesis-writable": "4.2.1",
     "blocked": "^1.2.1",
     "bunyan": "^1.8.1",
     "datadog-metrics": "~0.8.1",
