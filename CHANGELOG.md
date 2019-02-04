@@ -1,5 +1,10 @@
 # Changelog
 
+<a name="v2.24.0"></a>
+# v2.24.0
+### Dependencies
+* Update kinesis-writeable v4.2.0 -> v4.2.1
+
 <a name="v2.23.1"></a>
 # v2.23.1
 
