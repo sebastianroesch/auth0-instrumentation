@@ -10,7 +10,7 @@ describe('tracer hapi17 middleware', function() {
   //  - handler
   //  - response
   const SPAN_COUNT = 4;
-  describe('middleware with stubs', async function() {
+  describe('middleware with stubs', async () => {
     var server;
     var mock;
     var tracer;
@@ -46,7 +46,7 @@ describe('tracer hapi17 middleware', function() {
       });
       server.route({
         method: 'GET',
-        path: '/moreinfo',
+        path: '/moreinfo/{id}',
         handler: async (request, reply) => {
           request.a0trace.span.setTag('more_info', 'here');
           return 'ok';
@@ -114,14 +114,14 @@ describe('tracer hapi17 middleware', function() {
     });
 
     it('should make the created span available to handlers', async function() {
-      const req = { method: 'GET', url: `${server.info.uri}/moreinfo` };
+      const req = { method: 'GET', url: `${server.info.uri}/moreinfo/1` };
       const res = await server.inject(req);
       assert.equal(200, res.statusCode);
       const report = mock.report();
       assert.equal(4, report.spans.length);
       const reqSpan = report.firstSpanWithTagValue('more_info', 'here');
       assert.ok(reqSpan);
-      assert.equal('/moreinfo', reqSpan.operationName());
+      assert.equal('/moreinfo/{id}', reqSpan.operationName());
     });
   });
 });

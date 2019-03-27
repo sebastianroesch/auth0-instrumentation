@@ -161,7 +161,7 @@ describe('tracer express middleware', function() {
       app.get('/exception', function() {
         throw new Error('expected');
       });
-      app.get('/moreinfo', function(req, res) {
+      app.get('/moreinfo/:id', function(req, res) {
         req.a0trace.span.setTag('moreinfo', 'here');
         res.status(200).send('ok');
       });
@@ -189,12 +189,14 @@ describe('tracer express middleware', function() {
 
     it('should make the created span available to the request', function() {
       return request(app)
-        .get('/moreinfo')
+        .get('/moreinfo/1')
         .expect(200)
         .expect(function() {
           const report = $mock.report();
           assert.equal(1, report.spans.length);
-          assert.ok(report.firstSpanWithTagValue('moreinfo', 'here'));
+          const reqSpan = report.firstSpanWithTagValue('moreinfo', 'here');
+          assert.ok(reqSpan);
+          assert.equal('/moreinfo/:id', reqSpan.operationName());
         });
     });
 
