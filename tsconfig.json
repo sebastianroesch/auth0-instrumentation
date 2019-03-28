@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+      "target": "es5",
+      "module": "commonjs",
+      "outDir": "./lib",
+      "rootDir": "./src",
+      "types": ["node", "jest"],
+      "forceConsistentCasingInFileNames": true,
+      "noImplicitReturns": true,
+      "noImplicitThis": false,
+      "noImplicitAny": false,
+      "strictNullChecks": true,
+      "suppressImplicitAnyIndexErrors": true,
+      "noUnusedLocals": true,
+      "plugins": [
+        { "name": "typescript-tslint-plugin" }
+      ]
+  },
+  "exclude":[
+    "node_modules",
+    "jest",
+    "lib"
+  ]
+}
